@@ -52,11 +52,14 @@ a { color: inherit; text-decoration: none; }
   letter-spacing: .19em;
   text-transform: uppercase;
   white-space: nowrap;
+  color: #173d34;
+  transition: color .3s ease;
 }
+.ticker-item:hover { color: #527267; }
 .ticker-dot {
-  color: var(--forest);
+  color: #7b922f;
   font-size: .65rem;
-  filter: drop-shadow(0 0 7px color-mix(in srgb, var(--forest) 30%, transparent));
+  filter: drop-shadow(0 0 7px rgb(123 146 47 / .28));
 }
 @keyframes ticker-scroll { to { transform: translateX(-50%); } }
 
