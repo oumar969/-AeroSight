@@ -19,7 +19,6 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
   return <main>
     <section className="grain relative min-h-[820px] overflow-hidden bg-[var(--ink)] text-white">
       <img className="absolute inset-0 h-full w-full object-cover opacity-65" src="https://images.unsplash.com/photo-1548337138-e87d889cc369?auto=format&fit=crop&w=2200&q=88" alt="Offshore wind turbines at sea"/>
-      <video className="hero-video absolute inset-0 h-full w-full object-cover" autoPlay muted loop playsInline preload="metadata" aria-hidden="true"><source src={`${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/videos/offshore-wind-turbines.mp4`} type="video/mp4"/></video>
       <div className="absolute inset-0 bg-gradient-to-t from-[var(--ink)] via-transparent to-black/20"/><Header lang={lang}/>
       <div className="shell relative z-10 flex min-h-[820px] flex-col justify-end pb-12 pt-36">
         <p className="eyebrow mb-7 text-[var(--signal)]">Aerial intelligence / Wind energy</p><h1 className="display max-w-6xl">{t.heroA}<br/>{t.heroB}</h1>
