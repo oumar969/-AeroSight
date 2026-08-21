@@ -18,7 +18,7 @@ export const copy = {
     ],
     processLabel: "From flight to decision", processTitle: "A clearer way to inspect.",
     process: [["01", "Plan", "We align scope, assets and operational constraints."], ["02", "Capture", "Certified pilots collect consistent, high-resolution data."], ["03", "Analyze", "Our model identifies and categorizes areas that need attention."], ["04", "Act", "You receive a clear report built around next steps."]],
-    quote: "Know the condition of every blade—without putting a person on one.", quoteText: "Start with a few details. We’ll shape the inspection around your site.",
+    quote: "Know the condition of every blade without putting a person on one.", quoteText: "Start with a few details. We’ll shape the inspection around your site.",
     footer: "A better view of your assets.", rights: "All rights reserved.",
   },
   da: {
@@ -35,7 +35,7 @@ export const copy = {
     ],
     processLabel: "Fra flyvning til beslutning", processTitle: "En klarere måde at inspicere på.",
     process: [["01", "Planlæg", "Vi afstemmer omfang, aktiver og driftsmæssige hensyn."], ["02", "Indsaml", "Certificerede piloter indsamler ensartede data i høj opløsning."], ["03", "Analysér", "Vores model finder og kategoriserer områder, som kræver opmærksomhed."], ["04", "Handl", "I modtager en tydelig rapport bygget op omkring de næste skridt."]],
-    quote: "Kend tilstanden på hver vinge—uden at sætte en person på den.", quoteText: "Start med nogle få oplysninger. Vi tilpasser inspektionen til jeres site.",
+    quote: "Kend tilstanden på hver vinge uden at sætte en person på den.", quoteText: "Start med nogle få oplysninger. Vi tilpasser inspektionen til jeres site.",
     footer: "Et bedre overblik over jeres aktiver.", rights: "Alle rettigheder forbeholdes.",
   },
 } as const;
