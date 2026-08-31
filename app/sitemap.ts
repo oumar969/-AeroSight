@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { solutions } from "@/lib/content";
 import { siteUrl } from "@/lib/seo";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const paths = ["/", "/contact/", ...solutions.map((slug) => `/solutions/${slug}/`)];
   return paths.flatMap((path) => (["da", "en"] as const).map((lang) => ({
