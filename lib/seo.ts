@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { Lang, Solution } from "@/lib/content";
 
-export const siteUrl = "https://aero-sight-phi.vercel.app";
+export const siteUrl = "https://www.aerosight.dk";
 
 export const homeSeo: Record<Lang, { title: string; description: string }> = {
   da: {
