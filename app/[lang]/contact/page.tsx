@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowLeftIcon, ArrowDownIcon } from "@heroicons/react/24/outline";
 import { notFound } from "next/navigation";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -6,9 +7,16 @@ import { Header } from "@/components/Header";
 import { QuoteForm } from "@/components/QuoteForm";
 import { BrandLogo } from "@/components/BrandLogo";
 import { copy, Lang } from "@/lib/content";
+import { contactSeo, localizedMetadata } from "@/lib/seo";
 
 export function generateStaticParams() {
   return [{ lang: "en" }, { lang: "da" }];
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: Lang = raw === "da" ? "da" : "en";
+  return localizedMetadata(lang, "/contact/", contactSeo[lang]);
 }
 
 export default async function ContactPage({ params }: { params: Promise<{ lang: string }> }) {

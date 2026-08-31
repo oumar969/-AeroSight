@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { ArrowDownIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
 import { notFound } from "next/navigation";
 import { CookieBanner } from "@/components/CookieBanner";
@@ -6,8 +7,15 @@ import { Header } from "@/components/Header";
 import { QuoteForm } from "@/components/QuoteForm";
 import { BrandLogo } from "@/components/BrandLogo";
 import { copy, Lang, solutions } from "@/lib/content";
+import { homeSeo, localizedMetadata } from "@/lib/seo";
 
 export function generateStaticParams() { return [{ lang: "en" }, { lang: "da" }]; }
+
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang: raw } = await params;
+  const lang: Lang = raw === "da" ? "da" : "en";
+  return localizedMetadata(lang, "/", homeSeo[lang]);
+}
 
 export default async function Home({ params }: { params: Promise<{ lang: string }> }) {
   const { lang: raw } = await params; if (raw !== "en" && raw !== "da") notFound(); const lang = raw as Lang; const t = copy[lang];
