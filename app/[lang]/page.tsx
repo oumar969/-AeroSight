@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CookieBanner } from "@/components/CookieBanner";
 import { Header } from "@/components/Header";
 import { QuoteForm } from "@/components/QuoteForm";
+import { BrandLogo } from "@/components/BrandLogo";
 import { copy, Lang, solutions } from "@/lib/content";
 
 export function generateStaticParams() { return [{ lang: "en" }, { lang: "da" }]; }
@@ -42,7 +43,7 @@ export default async function Home({ params }: { params: Promise<{ lang: string 
 
     <section id="contact" className="bg-[var(--ink)] py-24 text-white md:py-36"><div className="shell grid gap-16 lg:grid-cols-2"><div><p className="eyebrow text-[var(--signal)]">{t.primary}</p><h2 className="section-title mt-8">{t.quote}</h2><p className="mt-8 max-w-lg text-lg leading-8 text-white/55">{t.quoteText}</p><ArrowDownIcon className="mt-20 h-16 w-16 text-[var(--signal)]"/></div><QuoteForm lang={lang}/></div></section>
 
-    <footer className="bg-[var(--ink)] pb-8 text-white"><div className="shell border-t border-white/20 pt-10"><p className="text-[clamp(2.6rem,7vw,7rem)] font-medium leading-none tracking-[-.06em]">AeroSight<span className="text-[var(--signal)]">●</span></p><div className="mt-12 flex flex-wrap justify-between gap-5 text-sm text-white/50"><span>{t.footer}</span><span>© {new Date().getFullYear()} AeroSight. {t.rights}</span></div></div></footer>
+    <footer className="bg-[var(--ink)] pb-8 text-white"><div className="shell border-t border-white/20 pt-10"><p className="text-[clamp(2.6rem,7vw,7rem)] font-medium leading-none tracking-[-.06em]"><BrandLogo /></p><div className="mt-12 flex flex-wrap justify-between gap-5 text-sm text-white/50"><span>{t.footer}</span><span>© {new Date().getFullYear()} AeroSight. {t.rights}</span></div></div></footer>
     <CookieBanner lang={lang}/>
   </main>;
 }

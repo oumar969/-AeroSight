@@ -4,12 +4,13 @@ import Link from "next/link";
 import { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { copy, Lang } from "@/lib/content";
+import { BrandLogo } from "@/components/BrandLogo";
 
 export function Header({ lang }: { lang: Lang }) {
   const [open, setOpen] = useState(false); const t = copy[lang]; const other = lang === "en" ? "da" : "en";
   return <header className="absolute inset-x-0 top-0 z-40 text-white">
     <div className="shell flex h-24 items-center justify-between border-b border-white/25">
-      <Link href={`/${lang}/`} className="focus-ring text-xl font-semibold tracking-[-.04em]">AeroSight<span className="text-[var(--signal)]">●</span></Link>
+      <Link href={`/${lang}/`} className="focus-ring text-xl"><BrandLogo /></Link>
       <nav className="hidden items-center gap-7 text-sm lg:flex">
         <Link href={`/${lang}/#solutions`}>{t.nav[0]}</Link><Link href={`/${lang}/#process`}>{t.nav[1]}</Link><Link href={`/${lang}/#industries`}>{t.nav[2]}</Link><Link href={`/${lang}/#why`}>{t.nav[3]}</Link>
       </nav>
