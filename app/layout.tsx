@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aero-sight-phi.vercel.app"),
+  metadataBase: new URL("https://www.aerosight.dk"),
   title: { default: "AeroSight | Drone Inspection for Wind Turbines", template: "%s | AeroSight" },
   description: "Drone-based wind turbine inspections, AI-assisted analysis and clear reporting.",
   applicationName: "AeroSight",
