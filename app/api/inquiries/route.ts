@@ -69,7 +69,7 @@ export async function POST(request: Request) {
       cache: "no-store",
     });
   } catch (error) {
-    console.error("Supabase request failed", error instanceof Error ? error.message : "unknown error");
+    console.error("Supabase request failed", error instanceof Error ? error.name : "UnknownError");
     return NextResponse.json({ error: locale === "da" ? "Databaseforbindelsen kunne ikke oprettes." : "The database connection could not be established.", code: "DATABASE_CONNECTION_FAILED" }, { status: 502 });
   }
   if (!saved.ok) {
