@@ -54,9 +54,15 @@ export async function POST(request: Request) {
     consent_at: new Date().toISOString(),
   };
 
+  const supabaseHeaders: Record<string, string> = {
+    apikey: supabaseKey,
+    "Content-Type": "application/json",
+  };
+  if (!supabaseKey.startsWith("sb_secret_")) supabaseHeaders.Authorization = `Bearer ${supabaseKey}`;
+
   const saved = await fetch(`${supabaseUrl}/rest/v1/inspection_requests`, {
     method: "POST",
-    headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json", Prefer: "return=representation" },
+    headers: { ...supabaseHeaders, Prefer: "return=representation" },
     body: JSON.stringify(record),
     cache: "no-store",
   });
@@ -77,7 +83,7 @@ export async function POST(request: Request) {
     });
     if (notified.ok) await fetch(`${supabaseUrl}/rest/v1/inspection_requests?id=eq.${created.id}`, {
       method: "PATCH",
-      headers: { apikey: supabaseKey, Authorization: `Bearer ${supabaseKey}`, "Content-Type": "application/json" },
+      headers: supabaseHeaders,
       body: JSON.stringify({ notification_sent_at: new Date().toISOString() }),
       cache: "no-store",
     });
