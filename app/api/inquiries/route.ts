@@ -80,25 +80,37 @@ export async function POST(request: Request) {
   const createdRows = await saved.json() as Array<{ id?: string }>;
   const created = createdRows[0];
   if (!created?.id) return NextResponse.json({ error: locale === "da" ? "Databasen returnerede ikke en reference." : "The database did not return a reference.", code: "DATABASE_REFERENCE_MISSING" }, { status: 502 });
-  const resendKey = process.env.RESEND_API_KEY;
+  const resendKey = process.env.RESEND_API_KEY?.replace(/\s+/g, "");
+  let notification: "sent" | "failed" | "not_configured" = "not_configured";
   if (resendKey) {
-    const notified = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        from: process.env.FORM_FROM_EMAIL || "AeroSight <notifications@aerosight.dk>",
-        to: [process.env.FORM_NOTIFICATION_EMAIL || "aerosightt@gmail.com"],
-        subject: "Ny inspektionsforespørgsel hos AeroSight",
-        text: `En ny forespørgsel er gemt sikkert. Reference: ${created.id}`,
-      }),
-    });
-    if (notified.ok) await fetch(`${supabaseUrl}/rest/v1/inspection_requests?id=eq.${created.id}`, {
-      method: "PATCH",
-      headers: supabaseHeaders,
-      body: JSON.stringify({ notification_sent_at: new Date().toISOString() }),
-      cache: "no-store",
-    });
+    try {
+      const notified = await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: { Authorization: `Bearer ${resendKey}`, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          from: process.env.FORM_FROM_EMAIL?.trim() || "AeroSight <notifications@aerosight.dk>",
+          to: [process.env.FORM_NOTIFICATION_EMAIL?.replace(/\s+/g, "") || "aerosightt@gmail.com"],
+          subject: "Ny inspektionsforespørgsel hos AeroSight",
+          text: `En ny forespørgsel er gemt sikkert. Reference: ${created.id}`,
+        }),
+      });
+      if (notified.ok) {
+        notification = "sent";
+        await fetch(`${supabaseUrl}/rest/v1/inspection_requests?id=eq.${created.id}`, {
+          method: "PATCH",
+          headers: supabaseHeaders,
+          body: JSON.stringify({ notification_sent_at: new Date().toISOString() }),
+          cache: "no-store",
+        });
+      } else {
+        notification = "failed";
+        console.error("Resend rejected notification", notified.status, await notified.text());
+      }
+    } catch (error) {
+      notification = "failed";
+      console.error("Resend request failed", error instanceof Error ? error.name : "UnknownError");
+    }
   }
 
-  return NextResponse.json({ ok: true, reference: created.id }, { status: 201 });
+  return NextResponse.json({ ok: true, reference: created.id, notification }, { status: 201 });
 }
