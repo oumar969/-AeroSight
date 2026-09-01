@@ -53,7 +53,7 @@ export default async function ContactPage({ params }: { params: Promise<{ lang: 
       <QuoteForm lang={lang} />
     </section>
 
-    <footer className="border-t border-white/15 py-8"><div className="shell flex flex-wrap items-center justify-between gap-4 text-sm text-white/45"><Link href={`/${lang}/`} className="text-lg text-white"><BrandLogo /></Link><span>© {new Date().getFullYear()} AeroSight. {t.rights}</span></div></footer>
+    <footer className="border-t border-white/15 py-8"><div className="shell flex flex-wrap items-center justify-between gap-4 text-sm text-white/45"><Link href={`/${lang}/`} className="text-lg text-white"><BrandLogo /></Link><div className="flex flex-wrap gap-5"><Link href={`/${lang}/privacy/`} className="underline">{da ? "Privatliv og cookies" : "Privacy and cookies"}</Link><span>© {new Date().getFullYear()} AeroSight. {t.rights}</span></div></div></footer>
     <CookieBanner lang={lang} />
   </main>;
 }

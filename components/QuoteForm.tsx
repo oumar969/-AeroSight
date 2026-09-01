@@ -14,7 +14,7 @@ const serviceOptions = [
 
 export function QuoteForm({ lang }: { lang: Lang }) {
   const da = lang === "da";
-  const enabled = process.env.NEXT_PUBLIC_FORM_ENABLED === "true";
+  const enabled = process.env.NEXT_PUBLIC_FORM_ENABLED !== "false";
   const [step, setStep] = useState(0);
   const [done, setDone] = useState(false);
   const [sending, setSending] = useState(false);

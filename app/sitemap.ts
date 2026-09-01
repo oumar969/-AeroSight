@@ -5,7 +5,7 @@ import { siteUrl } from "@/lib/seo";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const paths = ["/", "/contact/", ...solutions.map((slug) => `/solutions/${slug}/`)];
+  const paths = ["/", "/contact/", "/privacy/", ...solutions.map((slug) => `/solutions/${slug}/`)];
   return paths.flatMap((path) => (["da", "en"] as const).map((lang) => ({
     url: `${siteUrl}/${lang}${path}`,
     lastModified: new Date(),
