@@ -19,8 +19,8 @@ const clean = (value: unknown, max: number) => typeof value === "string" ? value
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
-  const supabaseUrl = process.env.SUPABASE_URL?.trim().replace(/\/$/, "");
-  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
+  const supabaseUrl = process.env.SUPABASE_URL?.replace(/\s+/g, "").replace(/\/$/, "");
+  const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.replace(/\s+/g, "");
   if (!supabaseUrl || !supabaseKey) return NextResponse.json({ error: "Formularen er ikke aktiveret endnu." }, { status: 503 });
 
   let input: Inquiry;
